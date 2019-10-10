@@ -8,6 +8,8 @@
 import boto3
 from os import getenv
 from typing import List
+import datetime
+import pytz
 
 
 class spaces_eraser:
@@ -22,6 +24,8 @@ class spaces_eraser:
                                       'ERROR_MISSING_VAR')
         self.SPACE_ACCESS_KEY = getenv('DO_VAR_SPACES_ACCESS_KEY',
                                        'ERROR_MISSING_VAR')
+        self.RSRC_TIMEOUT = int(getenv('DO_VAR_RSRC_TIMEOUT',
+                                       'ERROR_MISSING_VAR'))
 
     def launch_nuke(self):
         for region_tag in self.region_tags:
@@ -57,8 +61,19 @@ class spaces_eraser:
         spaces = self.s3_client.list_buckets()
         spaces_names = []
         for bucket in spaces['Buckets']:
-            spaces_names.append(bucket['Name'])
+            if self._idle_space(bucket):
+                spaces_names.append(bucket['Name'])
         return spaces_names
+
+    def _idle_space(self, bucket: dict):
+        """
+            Check if given bucket is old enough to be deleted
+                - param0: (dict) bucket's infos dictionnary
+        """
+        current_date = pytz.timezone('UTC').localize(datetime.datetime.now())
+        bucket_creation_date = bucket['CreationDate']
+        lifetime = current_date - bucket_creation_date
+        return lifetime.total_seconds() > self.RSRC_TIMEOUT
 
     def delete_space(self, space_name: str):
         """
