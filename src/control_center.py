@@ -45,5 +45,6 @@ class control_center:
                   'execution'.format(f_name)
         logging.exception(err_msg)
 
+
 if __name__ in '__main__':
     control_center().start_end_of_time()
