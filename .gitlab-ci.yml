@@ -1,0 +1,21 @@
+variables:
+  GIT_DEPTH: 10
+  SRC_PATH: ./src
+
+stages:
+  - git_static_analysis
+  - python_static_analysis
+  - nuke_them_all
+
+include:
+  - project: 'bodzen-playbooks/python'
+    ref: master
+    file: 'python-sca.yml'
+
+
+End of Time:
+  image: python:3.7.3-alpine3.9
+  stage: nuke_them_all
+  script:
+    - pip3 install -r ./requirements.txt
+    - python ${SRC_PATH}/control_center.py
