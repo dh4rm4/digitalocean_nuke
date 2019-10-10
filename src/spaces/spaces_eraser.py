@@ -10,7 +10,7 @@ from os import getenv
 from typing import List
 
 
-class space_eraser:
+class spaces_eraser:
     """
         Class used to list then destroy all digitalocean
         spaces (=bucket) in every available region

@@ -1,0 +1,11 @@
+*~
+#*#
+__pycache__
+\#*\#
+wip
+.wip.coverage
+.scannerwork/
+htmlcov/
+*pyre
+*dist
+*.egg-info
