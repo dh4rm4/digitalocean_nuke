@@ -23,7 +23,7 @@ End of Time:
   only:
     - master
   artifacts:
-    path:
+    paths:
       - error_logs.txt
     expire_in: 2 day
     when: always
