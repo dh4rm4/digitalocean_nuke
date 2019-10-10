@@ -1,13 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from os import getenv
 from spaces.spaces_eraser import spaces_eraser
 import logging
 from parameterized import parameterized
 from typing import NoReturn
 
 
-LOG_FILENAME = 'error_logs.txt'
+COMMIT_SHA = getenv('CI_COMMIT_SHA', 'ERROR_NO_VAR')
+LOG_FILENAME = 'error_logs_' + COMMIT_SHA + '.txt'
 logging.basicConfig(filename=LOG_FILENAME, level=logging.ERROR)
 
 

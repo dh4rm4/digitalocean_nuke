@@ -20,3 +20,10 @@ End of Time:
     - pip3 install -r ./requirements.txt
     - python ${SRC_PATH}/control_center.py
   when: manual
+  only:
+    - master
+  artifacts:
+    path:
+      - error_logs.txt
+    expire_in: 2 day
+    when: always
