@@ -2,10 +2,12 @@
 # -*- coding: utf-8 -*-
 
 from os import getenv
-from spaces.spaces_eraser import spaces_eraser
 import logging
 from parameterized import parameterized
 from typing import NoReturn
+
+from spaces.spaces_eraser import spaces_eraser
+from droplets.droplets_eraser import droplets_eraser
 
 
 COMMIT_SHA = getenv('CI_COMMIT_SHA', 'ERROR_NO_VAR')
@@ -16,9 +18,11 @@ logging.basicConfig(filename=LOG_FILENAME, level=logging.ERROR)
 class control_center:
     def start_end_of_time(self):
         self.generic_0_nuke_spaces()
+        self.generic_1_nuke_droplets()
 
     @parameterized.expand([
-        ['nuke_spaces', spaces_eraser]
+        ['nuke_spaces', spaces_eraser],
+        ['nuke_droplets', droplets_eraser]
     ])
     def generic(self, f_name: str, curr_class) -> NoReturn:
         try:
