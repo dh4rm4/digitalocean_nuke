@@ -36,6 +36,7 @@ class droplets_eraser:
         tz = pytz.timezone('UTC')
         creation_date = tz.localize(datetime.strptime(droplet.created_at,
                                                       '%Y-%m-%dT%H:%M:%SZ'))
+        tz = pytz.timezone('Europe/Paris')
         current_date = tz.localize(datetime.now())
         lifetime = current_date - creation_date
         return lifetime.total_seconds() > self.RSRC_TIMEOUT
