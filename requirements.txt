@@ -1,2 +1,3 @@
 parameterized==0.7.0
 boto3==1.9.243
+pytz==2019.1
