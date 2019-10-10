@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from src.spaces.spaces_eraser import spaces_eraser
+from spaces.spaces_eraser import spaces_eraser
 import logging
 from parameterized import parameterized
 from typing import NoReturn
