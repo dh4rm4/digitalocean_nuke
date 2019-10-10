@@ -23,7 +23,7 @@ End of Time:
     - master
   artifacts:
     paths:
-      - error_logs.txt
+      - error_logs_${CI_COMMIT_SHA}.txt
     expire_in: 2 day
     when: always
   except:
