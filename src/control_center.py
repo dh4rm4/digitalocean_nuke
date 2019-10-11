@@ -47,7 +47,7 @@ class control_center:
             self._ko('nuke_spaces')
 
     @parameterized.expand([
-        ['nuke_droplets', 'get_all_droplet'],
+        ['nuke_droplets', 'get_all_droplets'],
         ['nuke_firewalls', 'get_all_firewalls'],
         ['nuke_domains', 'get_all_domains'],
         ['nuke_floating_ips', 'get_all_floating_ips'],
