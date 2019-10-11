@@ -8,6 +8,11 @@ import pytz
 
 
 class generic_eraser:
+    """
+        Main DigitalOcean ressources eraser.
+        It uses the API Wrapper python-digitalocean:
+        https://github.com/koalalorenzo/python-digitalocean
+    """
     def __init__(self):
         """
             The following environnement variables need to be define:
