@@ -1,54 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from os import getenv
-import logging
 from parameterized import parameterized
 from typing import NoReturn
 
+from execution_transparency import execution_transparency
 from spaces.spaces_eraser import spaces_eraser
 from generic.generic_eraser import generic_eraser
-
-
-COMMIT_SHA = getenv('CI_COMMIT_SHA', 'ERROR_NO_VAR')
-LOG_FILENAME = 'error_logs_' + COMMIT_SHA + '.txt'
-logging.basicConfig(filename=LOG_FILENAME, level=logging.ERROR)
-
-
-class execution_transparency:
-    """
-        Contain all methods used to manage pipeline state
-        + output execution status
-        + error logging
-    """
-    did_pipeline_failed: bool = False
-
-    def __enter__(self):
-        return self
-
-    def __exit__(self, *args, **kwargs):
-        if self.did_pipeline_failed is True:
-            err_msg = 'One nuke missed his target.\n' \
-                      '\tSee the log file artifact for more details'
-            raise Exception(err_msg)
-
-    def _print_ok(self, func_name: str) -> NoReturn:
-        print(func_name, end=':\t')
-        print('\033[92mOK\033[0m')
-
-    def _ko(self, func_name: str) -> NoReturn:
-        self.did_pipeline_failed = True
-        self._log_error(func_name)
-        self._print_ko(func_name)
-
-    def _print_ko(self, func_name: str) -> NoReturn:
-        print(func_name, end=':\t')
-        print('\033[91mKO\033[0m')
-
-    def _log_error(self, f_name: str):
-        err_msg = 'Exception occured during "{0}" method ' \
-                  'execution'.format(f_name)
-        logging.exception(err_msg)
 
 
 class control_center(execution_transparency):
@@ -62,13 +20,16 @@ class control_center(execution_transparency):
                 return: (bool) True if one ressource
                                destruction failed
         """
-        self.destroy_ressources_0_nuke_droplets()
-        self.destroy_ressources_1_nuke_firewalls()
-        self.destroy_ressources_2_nuke_load_balancers()
-        self.destroy_ressources_3_nuke_certificates()
-        self.destroy_ressources_4_nuke_volumes()
-        self.destroy_ressources_5_nuke_snapshots()
-        self.destroy_ressources_6_nuke_spaces()
+        for method in self.dynamic_method():
+            getattr(self, method)()
+
+    def dynamic_method(self):
+        """
+            Return all dynamically generated function
+        """
+        for func in dir(self):
+            if 'destroy_ressources_' in func:
+                yield func
 
     @parameterized.expand([
         ['nuke_droplets', generic_eraser, 'get_all_droplets'],
