@@ -20,16 +20,17 @@ class control_center(execution_transparency):
                 return: (bool) True if one ressource
                                destruction failed
         """
-        for method in self.dynamic_method():
-            getattr(self, method)()
+        for method_name in self.dynamic_methods():
+            getattr(self, method_name)()
 
-    def dynamic_method(self):
+    def dynamic_methods(self):
         """
-            Return all dynamically generated function
+            Return all dynamically generated methods used
+            to destroy ressources
         """
-        for func in dir(self):
-            if 'destroy_ressources_' in func:
-                yield func
+        for method_name in dir(self):
+            if 'destroy_ressources_' in method_name:
+                yield method_name
 
     @parameterized.expand([
         ['nuke_droplets', generic_eraser, 'get_all_droplets'],
