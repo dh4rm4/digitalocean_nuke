@@ -2,13 +2,13 @@
 <p align="center">
 <a href=""><img src="https://media.giphy.com/media/uSHMDTUL7lKso/giphy.gif" alt="Nuke"></a>
 
-Small tool to periodically destroy every DigitalOcean ressources of a given account.
+Small tool to periodically nuke every DigitalOcean ressources of a given account.
 
 ## How To
 
 ### Requirements
 
-You must define few environnement variable to configure the execution.
+You must define few environnement variables to configure the execution.
 
 - DO_VAR_RSRC_TIMEOUT: max lifetime fore ressources in seconds (e.g. 1h -> 3600)
 - DO_VAR_TOKEN: main DigitalOcean [token](https://www.digitalocean.com/docs/api/create-personal-access-token/)
