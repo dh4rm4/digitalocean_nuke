@@ -5,15 +5,29 @@ from os import getenv
 from datetime import datetime
 import digitalocean as do
 import pytz
-from parameterized import parameterized
+
 
 class generic_eraser:
     def __init__(self):
+        """
+            The following environnement variables need to be define:
+                - DO_VAR_RSRC_TIMEOUT: max lifetime of a ressource
+                                        (in seconds)
+                - DO_VAR_TOKEN: main digitalocean token
+        """
         self.RSRC_TIMEOUT = int(getenv('DO_VAR_RSRC_TIMEOUT',
                                        'ERROR_MISSING_VAR'))
         self.DO_TOKEN = getenv('DO_VAR_TOKEN',
                                'MISSING_DO_TOKEN_VAR')
         self.do_client = do.Manager(token=self.DO_TOKEN)
+
+    def launch_nuke(self, method_name):
+        """
+            Starting point to nuke a given ressource.
+                - param0: (str) method name specific to the ressource to nuke
+        """
+        for ressource in getattr(self.do_client, method_name)():
+            self._delete_ressource(ressource)
 
     def _delete_ressource(self, ressource):
         """
