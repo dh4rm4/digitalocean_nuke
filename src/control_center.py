@@ -28,12 +28,10 @@ class control_center:
         self.nuke_spaces()
         self.destroy_ressources_0_nuke_droplets()
         self.destroy_ressources_1_nuke_firewalls()
-        self.destroy_ressources_2_nuke_domains()
-        self.destroy_ressources_3_nuke_floating_ips()
-        self.destroy_ressources_4_nuke_load_balancers()
-        self.destroy_ressources_5_nuke_certificates()
-        self.destroy_ressources_6_nuke_volumes()
-        self.destroy_ressources_7_nuke_snapshots()
+        self.destroy_ressources_2_nuke_load_balancers()
+        self.destroy_ressources_3_nuke_certificates()
+        self.destroy_ressources_4_nuke_volumes()
+        self.destroy_ressources_5_nuke_snapshots()
         return self.did_pipeline_failed
 
     def nuke_spaces(self):
@@ -49,8 +47,6 @@ class control_center:
     @parameterized.expand([
         ['nuke_droplets', 'get_all_droplets'],
         ['nuke_firewalls', 'get_all_firewalls'],
-        ['nuke_domains', 'get_all_domains'],
-        ['nuke_floating_ips', 'get_all_floating_ips'],
         ['nuke_load_balancers', 'get_all_load_balancers'],
         ['nuke_certificates', 'get_all_certificates'],
         ['nuke_volumes', 'get_all_volumes'],
