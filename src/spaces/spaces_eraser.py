@@ -20,6 +20,12 @@ class spaces_eraser:
     region_tags = ['fra1', 'nyc3', 'sfo2', 'sgp1', 'ams3']
 
     def __init__(self):
+        """
+            The following environnement variables need to be define:
+                - DO_VAR_SPACES_ACCESS_ID: DO Space access id
+                - DO_VAR_SPACES_ACCESS_KEY: DO Space access key
+                - DO_VAR_RSRC_TIMEOUT: max lifetime for ressources in seconds
+        """
         self.SPACE_ACCESS_ID = getenv('DO_VAR_SPACES_ACCESS_ID',
                                       'ERROR_MISSING_VAR')
         self.SPACE_ACCESS_KEY = getenv('DO_VAR_SPACES_ACCESS_KEY',
@@ -28,10 +34,18 @@ class spaces_eraser:
                                        'ERROR_MISSING_VAR'))
 
     def launch_nuke(self):
+        """
+            Entrypoint to nuke all account's spaces
+        """
         for region_tag in self.region_tags:
             self.delete_all_spaces(region_tag)
 
     def delete_all_spaces(self, region_tag: str):
+        """
+            Delete all spaces and their contents of the given
+            datacenter
+                - param0: (str) datacenter's region tag
+        """
         self.s3_client = self.init_space_connection(region_tag)
         for space in self.get_space_list():
             self.delete_space(space)

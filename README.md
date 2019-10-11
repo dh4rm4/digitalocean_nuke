@@ -1,18 +1,18 @@
-<p style="text-align: center;"> DigitalOcean Nuke</p>=
-<div style="text-align:center"><img src="https://media.giphy.com/media/uSHMDTUL7lKso/giphy.gif" /></div>
+# DigitalOcean Nuke
+![nuke](https://media.giphy.com/media/uSHMDTUL7lKso/giphy.gif)
 
 Small tool to periodically destroy every DigitalOcean ressources of a given account.
 
 ## How To
 
-### Requirements 
+### Requirements
 
 You must define few environnement variable to configure the execution.
 
 - DO_VAR_RSRC_TIMEOUT: max lifetime fore ressources in seconds (e.g. 1h -> 3600)
 - DO_VAR_TOKEN: main DigitalOcean [token](https://www.digitalocean.com/docs/api/create-personal-access-token/)
 - DO_VAR_SPACES_ACCESS_ID: DigitalOcean [space access_id](https://www.digitalocean.com/community/tutorials/how-to-create-a-digitalocean-space-and-api-key)
-- DO_VAR_SPACES_ACCESS_KEY: DIitalOcean [space access_key](https://www.digitalocean.com/community/tutorials/how-to-create-a-digitalocean-space-and-api-key) 
+- DO_VAR_SPACES_ACCESS_KEY: DIitalOcean [space access_key](https://www.digitalocean.com/community/tutorials/how-to-create-a-digitalocean-space-and-api-key)
 
 ### [Pipeline schedules](https://docs.gitlab.com/ee/user/project/pipelines/schedules.html)
 
