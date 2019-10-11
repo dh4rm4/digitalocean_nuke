@@ -26,5 +26,5 @@ End of Time:
       - error_logs_${CI_COMMIT_SHA}.txt
     expire_in: 2 day
     when: always
-#  except:
-#    - pushes
+  except:
+    - pushes
