@@ -33,7 +33,7 @@ class spaces_eraser:
         self.RSRC_TIMEOUT = int(getenv('DO_VAR_RSRC_TIMEOUT',
                                        'ERROR_MISSING_VAR'))
 
-    def launch_nuke(self):
+    def launch_nuke(self, *args, **kwarg):
         """
             Entrypoint to nuke all account's spaces
         """
