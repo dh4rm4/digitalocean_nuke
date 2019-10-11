@@ -1,5 +1,6 @@
-# DigitalOcean Nuke
-![nuke](https://media.giphy.com/media/uSHMDTUL7lKso/giphy.gif)
+<h1 align="center">DigitalOcean Nuke</h1>
+<p align="center">
+<a href=""><img src="https://media.giphy.com/media/uSHMDTUL7lKso/giphy.gif" alt="Nuke"></a>
 
 Small tool to periodically destroy every DigitalOcean ressources of a given account.
 
