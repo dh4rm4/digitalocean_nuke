@@ -8,8 +8,8 @@
 import boto3
 from os import getenv
 from typing import List
-import datetime
-import pytz
+
+from generic import ressource_date_manager
 
 
 class spaces_eraser:
@@ -84,10 +84,8 @@ class spaces_eraser:
             Check if given bucket is old enough to be deleted
                 - param0: (dict) bucket's infos dictionnary
         """
-        current_date = pytz.timezone('UTC').localize(datetime.datetime.now())
-        bucket_creation_date = bucket['CreationDate']
-        lifetime = current_date - bucket_creation_date
-        return lifetime.total_seconds() > self.RSRC_TIMEOUT
+        date_manager = ressource_date_manager(created_at=bucket['CreationDate'])
+        return date_manager.is_idle(self.RSRC_TIMEOUT)
 
     def delete_space(self, space_name: str):
         """

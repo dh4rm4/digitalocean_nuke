@@ -2,9 +2,9 @@
 # -*- coding: utf-8 -*-
 
 from os import getenv
-from datetime import datetime
 import digitalocean as do
-import pytz
+
+from generic import ressource_date_manager
 
 
 class generic_eraser:
@@ -48,10 +48,7 @@ class generic_eraser:
             Check if given ressource is old enough to be deleted
                 - param0: ressource objects
         """
-        tz = pytz.timezone('UTC')
-        creation_date = tz.localize(datetime.strptime(ressource.created_at,
-                                                      '%Y-%m-%dT%H:%M:%SZ'))
-        tz = pytz.timezone('Europe/Paris')
-        current_date = tz.localize(datetime.now())
-        lifetime = current_date - creation_date
-        return lifetime.total_seconds() > self.RSRC_TIMEOUT
+        date_manager = ressource_date_manager(timezone='UTC',
+                                              created_at=ressource.created_at,
+                                              date_format='%Y-%m-%dT%H:%M:%SZ')
+        return date_manager.is_idle(self.RSRC_TIMEOUT)
